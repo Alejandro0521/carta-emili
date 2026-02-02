@@ -120,12 +120,36 @@ function createPetal() {
 function createBurst() { for(let i = 0; i < 30; i++) setTimeout(createPetal, i * 50); }
 setInterval(createPetal, 300);
 
-// Al hacer clic en "Sí, acepto" lanzamos pétalos y abrimos correo
+// Fuegos artificiales desde el botón de "Sí, acepto"
+function createFireworksAt(x, y) {
+    const colors = ['#ff4d6d', '#ffb703', '#ffd166', '#9d4edd', '#4cc9f0'];
+    const particles = 25;
+    for (let i = 0; i < particles; i++) {
+        const p = document.createElement('div');
+        p.className = 'firework-particle';
+        const angle = (Math.PI * 2 * i) / particles;
+        const distance = 40 + Math.random() * 40;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        p.style.setProperty('--dx', dx + 'px');
+        p.style.setProperty('--dy', dy + 'px');
+        p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 800);
+    }
+}
+
+// Al hacer clic en "Sí, acepto" lanzamos pétalos y fuegos artificiales
 function onAcceptClick() {
     createBurst();
-    const subject = encodeURIComponent('Emili dijo: Sí, acepto');
-    const body = encodeURIComponent('Hola Ale,\n\nEmili abrió la carta y presionó "Sí, acepto" ❤️');
-    window.location.href = `mailto:uncharted45463@gmail.com?subject=${subject}&body=${body}`;
+    const btn = document.querySelector('button[onclick="onAcceptClick()"]');
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    createFireworksAt(centerX, centerY);
 }
 
 // FECHA
