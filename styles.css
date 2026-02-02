@@ -186,11 +186,6 @@
 
 /* --- RESPONSIVE --- */
 @media (max-width: 640px) {
-    .envelope-container {
-        width: 260px;
-        height: 180px;
-    }
-
     .letter-preview {
         width: 220px;
         height: 150px;
@@ -204,11 +199,6 @@
 }
 
 @media (max-width: 400px) {
-    .envelope-container {
-        width: 220px;
-        height: 160px;
-    }
-
     .letter-preview {
         width: 200px;
         height: 135px;
