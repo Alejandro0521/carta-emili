@@ -1,0 +1,169 @@
+/* --- TIPOGRAFÍAS --- */
+.font-script { font-family: 'Dancing Script', cursive; }
+.font-body { font-family: 'Quicksand', sans-serif; }
+
+/* --- SLIDESHOW DE FONDO --- */
+#bg-slideshow { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.bg-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    /* filtro de desvanecido/suavizado */
+    filter: blur(2px) brightness(0.8);
+    transform: scale(1.05);
+}
+.bg-slide::after {
+    /* capa blanca translúcida encima para desvanecer aún más */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.35);
+}
+.bg-slide.show { opacity: 1; }
+.bg-slide.blur { filter: blur(2px) saturate(1.05); transform: scale(1.02); }
+
+/* --- ESTILOS DEL SOBRE (CORREGIDO) --- */
+.envelope-container {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    margin: 0 auto;
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
+}
+.envelope-container:hover { transform: scale(1.05); }
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ff9a9e 0%, #fecfef 100%);
+    border-radius: 0 0 10px 10px;
+}
+
+/* Solapa Superior (La que se abre) */
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 130px solid #ff708d;
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.6s;
+    z-index: 5;
+    filter: brightness(0.95);
+}
+
+/* Cuerpo del Sobre (Frente - Triángulos inferiores) */
+.envelope::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid #ff8fa3;
+    border-right: 160px solid #ff708d;
+    border-top: 100px solid transparent;
+    border-bottom: 120px solid #ff5e78;
+    border-radius: 0 0 10px 10px;
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* Estado Abierto */
+.envelope.open::before {
+    transform: rotateX(180deg);
+    z-index: 1;
+    border-top-color: #ff9aa2;
+}
+
+/* --- CARTA (VISTA PREVIA DENTRO DEL SOBRE) --- */
+.letter-preview {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 180px;
+    background: white;
+    padding: 15px;
+    transition: bottom 0.6s ease-in-out, opacity 0.4s;
+    z-index: 2;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d6336c;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.envelope.open .letter-preview {
+    bottom: 150px;
+    opacity: 0;
+    z-index: 6;
+}
+
+/* --- SELLO DE CORAZÓN --- */
+.heart-seal {
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #d60000, #900000);
+    border-radius: 50%;
+    z-index: 6;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 2px 2px 5px rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: rgba(255,255,255,0.9);
+    border: 2px solid rgba(255,255,255,0.2);
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.envelope-container:hover .heart-seal { transform: translate(-50%, -50%) scale(1.1); }
+.envelope.open .heart-seal { opacity: 0; transform: translate(-50%, -50%) scale(0); pointer-events: none; }
+
+/* --- MODAL DE CARTA COMPLETA --- */
+.full-letter { opacity: 0; pointer-events: none; transform: translateY(20px); transition: all 0.8s ease-in-out; }
+.full-letter.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* --- EXTRAS (Pétalos, Latido, Cursor) --- */
+.petal { position: absolute; top: -10vh; background-color: #ffdce0; border-radius: 150% 0 150% 0; animation: fall linear infinite; z-index: 1; opacity: 0.8; }
+@keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+
+.heartbeat { animation: beat 1.5s infinite; }
+@keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+.cursor-trail { position: fixed; pointer-events: none; z-index: 9999; animation: floatUp 1s ease-out forwards; font-size: 1.2rem; }
+@keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-20px) scale(0.5); opacity: 0; } }
+
+/* Texto de la carta (poema) */
+.letter-text {
+    text-align: justify;
+    font-style: italic;
+}
+
+.letter-text .letter-closing {
+    text-align: center;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #ff5e78; border-radius: 10px; }

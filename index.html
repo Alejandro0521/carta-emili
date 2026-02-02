@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti - San Valentín</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Estilos locales -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="h-screen w-full overflow-hidden relative bg-pink-100 font-body">
+
+    <!-- Slideshow de fondo (se rellenará con JS) -->
+    <div id="bg-slideshow" class="absolute inset-0 z-0"></div>
+
+    <!-- Música -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="Árbol De Manzanas.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Fondo: sólo carrusel de imágenes + pétalos -->
+    <div id="petals-container" class="absolute inset-0 overflow-hidden pointer-events-none z-10"></div>
+
+    <!-- Contenido Principal -->
+    <div class="relative z-20 h-full w-full flex flex-col items-center justify-center p-4">
+
+        <!-- PANTALLA 1: EL SOBRE -->
+        <div id="start-screen" class="text-center transition-opacity duration-700">
+            <h1 class="text-3xl md:text-5xl text-pink-700 font-script font-bold mb-12 drop-shadow-md bg-white/60 px-6 py-2 rounded-full inline-block backdrop-blur-sm">
+                Emili, ¿Quieres ser mi San Valentin?
+            </h1>
+
+            <div class="envelope-container" onclick="openLetter()">
+                <div class="envelope" id="envelope">
+                    <div class="letter-preview">
+                        <p class="font-script text-2xl">¡Ábreme!</p>
+                    </div>
+                    <!-- Sello de Corazón -->
+                    <div class="heart-seal">❤️</div>
+                </div>
+            </div>
+            
+            <p class="mt-12 text-pink-800 font-bold bg-white/50 px-4 py-1 rounded-full inline-block animate-pulse">
+                Toca el sello para abrir
+            </p>
+        </div>
+
+        <!-- PANTALLA 2: LA CARTA -->
+        <div id="letter-content" class="full-letter absolute inset-0 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
+            
+            <div class="bg-white/95 max-w-lg w-full rounded-2xl shadow-2xl overflow-hidden transform scale-100 flex flex-col max-h-[90vh]">
+                
+                <!-- Cabecera -->
+                <div class="bg-gradient-to-r from-pink-500 to-rose-500 p-6 text-center relative">
+                    <button onclick="closeLetter()" class="absolute top-4 right-4 text-white hover:text-pink-100 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div class="w-20 h-20 bg-white rounded-full mx-auto flex items-center justify-center shadow-lg mb-2">
+                        <span class="text-4xl">🌸</span>
+                    </div>
+                    <h2 class="text-3xl font-script text-white font-bold">Ale ❤️ Mili</h2>
+                </div>
+
+                <!-- Cuerpo -->
+                <div class="p-8 overflow-y-auto text-center space-y-6">
+                    <p id="date-display" class="text-gray-500 uppercase tracking-widest text-xs font-bold">...</p>
+                    
+                    <div class="prose text-gray-700 font-body text-lg leading-relaxed letter-text">
+                        <p class="text-xl font-bold text-pink-600 mb-4">Amor de mi vida,</p>
+
+                        <p>
+                            Podría escribir mil versos de amor, bajar las estrellas o detener el tiempo, pero nada alcanzaría para explicar este sentimiento inmenso que llevo dentro.
+                        </p>
+                        <p>
+                            Eres el aire, el sueño, la fuerza y lo que le da sentido a mis días. Te amo, Emili, más allá de las palabras, con cada latido y en cada suspiro.
+                        </p>
+                        <p>
+                            Mientras mi corazón siga latiendo, tú seguirás siendo mi todo, lo más especial que la vida me ha dado. Jamás te voy a soltar.
+                        </p>
+                        <p class="font-bold text-pink-600 letter-closing">
+                            Te amo con todo mi ser.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-pink-100 mt-6">
+                        <p class="font-script text-3xl text-rose-500 rotate-[-5deg] heartbeat inline-block">
+                            Con amor, <br> Alejandro
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pie -->
+                <div class="bg-pink-50 p-4 text-center">
+                    <button class="bg-rose-500 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:bg-rose-600 transition transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 mx-auto" onclick="createBurst()">
+                        Sí, acepto <span>❤️</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script local -->
+    <script src="script.js" defer></script>
+</body>
+</html>
