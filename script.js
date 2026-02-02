@@ -120,6 +120,14 @@ function createPetal() {
 function createBurst() { for(let i = 0; i < 30; i++) setTimeout(createPetal, i * 50); }
 setInterval(createPetal, 300);
 
+// Al hacer clic en "Sí, acepto" lanzamos pétalos y abrimos correo
+function onAcceptClick() {
+    createBurst();
+    const subject = encodeURIComponent('Emili dijo: Sí, acepto');
+    const body = encodeURIComponent('Hola Ale,\n\nEmili abrió la carta y presionó "Sí, acepto" ❤️');
+    window.location.href = `mailto:uncharted45463@gmail.com?subject=${subject}&body=${body}`;
+}
+
 // FECHA
 function setDateDisplay() {
     const dateDisplay = document.getElementById('date-display');

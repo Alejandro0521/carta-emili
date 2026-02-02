@@ -167,3 +167,34 @@
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: #ff5e78; border-radius: 10px; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 640px) {
+    .envelope-container {
+        width: 260px;
+        height: 180px;
+    }
+
+    .letter-preview {
+        width: 220px;
+        height: 150px;
+        padding: 10px;
+    }
+
+    /* Texto un poco más pequeño en pantallas chicas */
+    .full-letter .letter-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .envelope-container {
+        width: 220px;
+        height: 160px;
+    }
+
+    .letter-preview {
+        width: 200px;
+        height: 135px;
+    }
+}
